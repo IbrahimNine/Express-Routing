@@ -1,0 +1,41 @@
+const express = require("express");
+const app = express();
+
+app.use(express.static("public"));
+app.set("view engine", "ejs");
+app.set("views", "./views");
+
+app.use((req, res, next) => {
+  const now = new Date();
+  const day = now.getDay();
+  const hour = now.getHours();
+
+
+  const isOnService = day >= 1 && day <= 5 && hour >= 9 && hour < 17;
+
+  if (isOnService) {
+    next();
+  } else {
+    let requestedPage = req.path.substring(1);
+    res.status(500).render("outOfService", { pageTitle: requestedPage });
+  }
+});
+
+app.get("/", (req, res) => {
+  res.render("home");
+});
+app.get("/services", (req, res) => {
+  res.render("services");
+});
+app.get("/contact", (req, res) => {
+  res.render("contact");
+});
+app.use((req, res) => {
+  res.status(404).render("notFound");
+});
+
+app.listen(3000, (err) => {
+  err
+    ? console.log(err)
+    : console.log("the server is running well on the port 3000");
+});
