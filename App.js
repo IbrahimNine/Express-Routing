@@ -10,14 +10,12 @@ app.use((req, res, next) => {
   const day = now.getDay();
   const hour = now.getHours();
 
-
   const isOnService = day >= 1 && day <= 5 && hour >= 9 && hour < 17;
 
   if (isOnService) {
     next();
   } else {
-    let requestedPage = req.path.substring(1);
-    res.status(500).render("outOfService", { pageTitle: requestedPage });
+    res.status(500).render("outOfService");
   }
 });
 

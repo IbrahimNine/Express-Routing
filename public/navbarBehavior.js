@@ -6,8 +6,8 @@ document.addEventListener("DOMContentLoaded", function () {
   function scrollFunction() {
     var navbar = document.getElementById("navbar");
     if (
-      (document.body.scrollTop > 20 ||
-        document.documentElement.scrollTop > 20) &&
+      (document.body.scrollTop > 350 ||
+        document.documentElement.scrollTop > 350) &&
       window.innerWidth > 750
     ) {
       navbar.style.width = "80%";
